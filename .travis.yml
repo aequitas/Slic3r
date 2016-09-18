@@ -1,22 +1,14 @@
-language: perl
-install: export LDLOADLIBS=-lstdc++
-script: perl ./Build.PL
-perl:
-  - "5.14"
-  - "5.18"
-  - "5.20"
+os: osx
+osx_image: xcode8
+
+before_install:
+  - brew install boost --universal
+  - brew install wxmac
+script:
+  - cpan App::cpanminus
+  - perl Build.PL
+  - perl Build.PL --gui
+
 branches:
   only:
     - master
-    - stable
-sudo: false
-cache:
-    - apt
-addons:
-  apt:
-    sources:
-    - boost-latest
-    packages:
-    - libboost-thread1.55-dev
-    - libboost-system1.55-dev
-    - libboost-filesystem1.55-dev
